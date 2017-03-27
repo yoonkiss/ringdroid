@@ -169,6 +169,7 @@ public class WaveformView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         mScaleGestureDetector.onTouchEvent(event);
         if (mGestureDetector.onTouchEvent(event)) {
+            Log.d("mmm", "??");
             return true;
         }
 
@@ -178,9 +179,11 @@ public class WaveformView extends View {
             break;
         case MotionEvent.ACTION_MOVE:
             mListener.waveformTouchMove(event.getX());
+            Log.d("mmm", "move event?");
             break;
         case MotionEvent.ACTION_UP:
             mListener.waveformTouchEnd();
+            Log.d("mmm", "touch end -> onplay");
             break;
         }
         return true;

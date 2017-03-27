@@ -333,7 +333,8 @@ public class RingdroidEditActivity extends Activity
 
     public void waveformTouchMove(float x) {
         mOffset = trap((int)(mTouchInitialOffset + (mTouchStart - x)));
-        updateDisplay();
+        //updateDisplay();
+        waveformTouchEnd();
     }
 
     public void waveformTouchEnd() {
@@ -638,6 +639,7 @@ public class RingdroidEditActivity extends Activity
         // Load the sound file in a background thread
         mLoadSoundFileThread = new Thread() {
             public void run() {
+                Log.d("mmm", "start loading file");
                 try {
                     mSoundFile = SoundFile.create(mFile.getAbsolutePath(), listener);
 
@@ -682,6 +684,7 @@ public class RingdroidEditActivity extends Activity
                     mHandler.post(runnable);
                     return;
                 }
+                Log.d("mmm", "start ending file");
                 mProgressDialog.dismiss();
                 if (mLoadingKeepGoing) {
                     Runnable runnable = new Runnable() {
@@ -1554,6 +1557,8 @@ public class RingdroidEditActivity extends Activity
                 if (mIsPlaying) {
                     mStartPos = mWaveformView.millisecsToPixels(
                         mPlayer.getCurrentPosition());
+
+                    Log.d("mmm", "start:" + Integer.toString(mStartPos));
                     updateDisplay();
                 }
             }
@@ -1564,6 +1569,7 @@ public class RingdroidEditActivity extends Activity
                 if (mIsPlaying) {
                     mEndPos = mWaveformView.millisecsToPixels(
                         mPlayer.getCurrentPosition());
+                    Log.d("mmm", "end:" + Integer.toString(mStartPos));
                     updateDisplay();
                     handlePause();
                 }

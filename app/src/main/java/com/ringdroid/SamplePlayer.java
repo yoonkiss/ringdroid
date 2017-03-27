@@ -21,6 +21,7 @@ import java.nio.ShortBuffer;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
+import android.util.Log;
 
 import com.ringdroid.soundfile.SoundFile;
 
@@ -160,6 +161,7 @@ class SamplePlayer {
     }
 
     public void seekTo(int msec) {
+        Log.d("mmm", "seekTo");
         boolean wasPlaying = isPlaying();
         stop();
         mPlaybackStart = (int)(msec * (mSampleRate / 1000.0));
