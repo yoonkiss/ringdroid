@@ -21,8 +21,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
 
-    <string name="ringdroid_app_name">Ringdroid</string>
-
+    <string name="app_name">Waveform</string>
     <!--
      Main / media select activity
      -->

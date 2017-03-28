@@ -34,15 +34,20 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <supports-screens android:anyDensity="true" />
-
+    <!--
     <application android:label="@string/ringdroid_app_name"
                  android:icon="@drawable/ringdroidlogo"
                  android:theme="@android:style/Theme.Holo"
                  android:largeHeap="true"
                  android:allowBackup="true">
-
-
+    -->
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
         <!-- Main activity that's launched when the user opens Ringdroid. -->
+        <!--
         <activity android:name="RingdroidSelectActivity"
                   android:label="@string/main_activity_label">
             <intent-filter>
@@ -59,7 +64,16 @@
             </intent-filter>
 
         </activity>
-
+        -->
+        <activity
+            android:name="MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 	<!-- Activity for actually editing a particular audio file.
              Controls viewing the waveform, setting the start and end
              positions, playback, and triggering saving of the output

@@ -4,6 +4,11 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
         applicationId "com.ringdroid"
         minSdkVersion 16
@@ -13,6 +18,11 @@ android {
         targetSdkVersion 22
         versionCode 20704
         versionName "2.7.4"
+
+        jackOptions {
+            enabled true
+        }
+
     }
 
     buildTypes {
@@ -21,4 +31,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:+'
 }
