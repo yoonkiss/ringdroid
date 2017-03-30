@@ -50,6 +50,7 @@ import java.util.List;
  *
  * Modified by Anna Stępień <anna.stepien@semantive.com>
  */
+
 public abstract class WaveformFragment extends Fragment implements MarkerView.MarkerListener, WaveformView.WaveformListener {
 
     public static final String TAG = "WaveformFragment";
@@ -368,7 +369,7 @@ public abstract class WaveformFragment extends Fragment implements MarkerView.Ma
 
         mWaveformView = (WaveformView) view.findViewById(R.id.waveform);
         mWaveformView.setListener(this);
-        mWaveformView.setSegments(getSegments());
+        //mWaveformView.setSegments(getSegments());
 
         mInfo = (TextView) view.findViewById(R.id.info);
         mInfo.setText(mCaption);
