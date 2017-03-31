@@ -53,7 +53,7 @@ import java.util.List;
 
 public abstract class WaveformFragment extends Fragment implements MarkerView.MarkerListener, WaveformView.WaveformListener {
 
-    public static final String TAG = "WaveformFragment";
+    public static final String TAG = "waveform";
 
     protected long mLoadingLastUpdateTime;
     protected boolean mLoadingKeepGoing;
@@ -153,6 +153,7 @@ public abstract class WaveformFragment extends Fragment implements MarkerView.Ma
      * animate and trigger another redraw.
      */
     public void waveformDraw() {
+        Log.d(TAG, "waveformDraw");
         mWidth = mWaveformView.getMeasuredWidth();
         if (mOffsetGoal != mOffset && !mKeyDown)
             updateDisplay();
@@ -164,6 +165,7 @@ public abstract class WaveformFragment extends Fragment implements MarkerView.Ma
     }
 
     public void waveformTouchStart(float x) {
+        Log.d(TAG, "waveformTouchStart");
         mTouchDragging = true;
         mTouchStart = x;
         mTouchInitialOffset = mOffset;
@@ -172,6 +174,7 @@ public abstract class WaveformFragment extends Fragment implements MarkerView.Ma
     }
 
     public void waveformTouchMove(float x) {
+        Log.d(TAG, "waveformTouchMove");
         mOffset = trap((int) (mTouchInitialOffset + (mTouchStart - x)));
         updateDisplay();
     }
@@ -179,7 +182,7 @@ public abstract class WaveformFragment extends Fragment implements MarkerView.Ma
     public void waveformTouchEnd() {
         mTouchDragging = false;
         mOffsetGoal = mOffset;
-
+        Log.d(TAG, "waveformTouchEnd");
         long elapsedMsec = System.currentTimeMillis() - mWaveformTouchStartMsec;
         if (elapsedMsec < 300) {
             if (mIsPlaying) {
@@ -487,6 +490,7 @@ public abstract class WaveformFragment extends Fragment implements MarkerView.Ma
             int frames = mWaveformView.millisecsToPixels(now);
             mWaveformView.setPlayback(frames);
             setOffsetGoalNoUpdate(frames - mWidth / 2);
+            // FIXME
             if (now >= mPlayEndMsec) {
                 handlePause();
             }
@@ -693,7 +697,8 @@ public abstract class WaveformFragment extends Fragment implements MarkerView.Ma
         if (mPlayer != null && mPlayer.isPlaying()) {
             mPlayer.pause();
         }
-        mWaveformView.setPlayback(-1);
+        // FIXME
+        //mWaveformView.setPlayback(-1);
         mIsPlaying = false;
         enableDisableButtons();
     }
@@ -762,7 +767,17 @@ public abstract class WaveformFragment extends Fragment implements MarkerView.Ma
 
     protected OnClickListener mPlayListener = new OnClickListener() {
         public void onClick(View sender) {
-            onPlay(mStartPos);
+            int now = mPlayer.getCurrentPosition() + mPlayStartOffset;
+            int frames = mWaveformView.millisecsToPixels(now);
+//                int frames = mWaveformView.millisecsToPixels(now);
+//                mWaveformView.setPlayback(frames);
+//                setOffsetGoalNoUpdate(frames - mWidth / 2);
+//                // FIXME
+//                if (now >= mPlayEndMsec) {
+//                    handlePause();
+//                }
+            Log.d(TAG, String.format("currPos: %d",frames));
+            onPlay(frames);
         }
     };
 

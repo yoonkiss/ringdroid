@@ -58,6 +58,7 @@ public class WaveformView extends View {
     // Colors
     private Paint mGridPaint;
     private Paint mSelectedLinePaint;
+    private Paint mSelectedBkgndLinePaint;
     private Paint mUnselectedLinePaint;
     private Paint mUnselectedBkgndLinePaint;
     private Paint mBorderLinePaint;
@@ -84,6 +85,8 @@ public class WaveformView extends View {
     private ScaleGestureDetector mScaleGestureDetector;
     private boolean mInitialized;
 
+    public static final String TAG = "waveform";
+
     public WaveformView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -100,6 +103,9 @@ public class WaveformView extends View {
         mUnselectedLinePaint = new Paint();
         mUnselectedLinePaint.setAntiAlias(false);
         mUnselectedLinePaint.setColor(res.getColor(R.color.waveform_unselected));
+        mSelectedBkgndLinePaint = new Paint();
+        mSelectedBkgndLinePaint.setAntiAlias(true);
+        mSelectedBkgndLinePaint.setColor(res.getColor(R.color.waveform_selected_bkgnd_overlay));
         mUnselectedBkgndLinePaint = new Paint();
         mUnselectedBkgndLinePaint.setAntiAlias(false);
         mUnselectedBkgndLinePaint.setColor(res.getColor(R.color.waveform_unselected_bkgnd_overlay));
@@ -371,6 +377,8 @@ public class WaveformView extends View {
             if (i + start >= mSelectionStart &&
                     i + start < mSelectionEnd) {
                 paint = mSelectedLinePaint;
+                drawWaveformLine(canvas, i, 0, measuredHeight,
+                        mSelectedBkgndLinePaint);
             } else {
                 drawWaveformLine(canvas, i, 0, measuredHeight,
                         mUnselectedBkgndLinePaint);
@@ -386,7 +394,7 @@ public class WaveformView extends View {
             if (i + start == mPlaybackPos) {
                 canvas.drawLine(i, 0, i, measuredHeight, mPlaybackLinePaint);
                 String log = String.format("ctr:%d, (%d/%d),%d", ctr, i, mPlaybackPos, mHeightsAtThisZoomLevel[start + i]);
-                Log.v("mmm", log);
+                Log.d(TAG, log);
             }
         }
 
